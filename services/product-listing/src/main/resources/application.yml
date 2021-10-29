@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: product-listing
+  #  cloud:
+  #    stream:
+  #      bindings:
+  #        order-channel:
+  #          destination: order-channel
+  #      rabbit:
+  #        binder:
+  #          connection-name-prefix: ${spring.application.name}
+  #        bindings:
+  #          order-channel:
+  #            consumer:
+  #              auto-bind-dlq: true
+  #              prefix: xyz.
+  #              dead-letter-exchange: xyz.order-channel.dlx
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ${DB_URL:jdbc:h2:mem:product}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:changeit}
+  sql:
+    init:
+      schema-locations: classpath*:db/migration/schema-h2.sql
+      data-locations: classpath*:db/migration/data-h2.sql
+      platform: h2
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: true
+
