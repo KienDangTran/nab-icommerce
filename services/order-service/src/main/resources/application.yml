@@ -1,9 +1,11 @@
+product-service-uri: ${PRODUCT_SERVICE_URI:http://localhost:8080}
+
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
-    name: product-listing
+    name: order-service
   #  cloud:
   #    stream:
   #      bindings:
@@ -14,7 +16,7 @@ spring:
   #          connection-name-prefix: ${spring.application.name}
   #        bindings:
   #          order-channel:
-  #            consumer:
+  #            producer:
   #              auto-bind-dlq: true
   #              prefix: nab.
   #              dead-letter-exchange: nab.order-channel.dlx
@@ -26,7 +28,6 @@ spring:
   sql:
     init:
       schema-locations: classpath*:db/migration/schema-h2.sql
-      data-locations: classpath*:db/migration/data-h2.sql
       platform: h2
   jpa:
     hibernate:

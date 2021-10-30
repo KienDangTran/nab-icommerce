@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    stream:
+      default: # binding default props
+        content-type: application/json
+        group: nab
+        consumer:
+          concurrency: 2
+          max-attempts: 3
+          auto-bind-dlq: true
+        producer:
+          required-groups: ${spring.cloud.stream.default.group}
+          auto-bind-dlq: true
+      default-binder: rabbit
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_DEFAULT_USER:admin}
+    password: ${RABBITMQ_DEFAULT_PASS:changeit}
+    virtual-host: ${RABBITMQ_DEFAULT_VHOST:/}
+    listener:
+      type: direct

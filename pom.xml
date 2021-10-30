@@ -17,14 +17,30 @@
 
   <modules>
     <module>services/product-listing</module>
+    <module>services/order-service</module>
+    <module>shared-modules/icommerce-rest-commons</module>
+    <module>shared-modules/icommerce-cloud-stream-commons</module>
   </modules>
 
   <properties>
     <maven.compiler.source>16</maven.compiler.source>
     <maven.compiler.target>16</maven.compiler.target>
     <lombok.version>1.18.20</lombok.version>
+    <spring-cloud.version>2020.0.4</spring-cloud.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>

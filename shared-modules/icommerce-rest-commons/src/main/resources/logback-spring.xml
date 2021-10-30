@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <springProperty
+      scope="context"
+      name="appLogLevel"
+      source="logging.level.com.nab"
+      defaultValue="DEBUG"
+  />
+  <springProperty
+      scope="context"
+      name="rootLogLevel"
+      source="logging.level.root"
+      defaultValue="INFO"
+  />
+  <springProperty
+      scope="context"
+      name="timezone"
+      source="timezone"
+      defaultValue="UTC"
+  />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %highlight(%-5level) [%gray(%5.5thread)] %magenta(${timezone}) %cyan(%d{yyyy-MM-dd, ${timezone}}) %green(%d{HH:mm:ss, ${timezone}}) | %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!--<appender name="STASH" class="ch.qos.logback.core.ConsoleAppender">-->
+  <!--<encoder class="net.logstash.logback.encoder.LogstashEncoder">-->
+  <!--<includeContext>false</includeContext>-->
+  <!--<includeMdc>true</includeMdc>-->
+  <!--<includeMdcKeyName>staff</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>action</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>object</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>field</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>old-value</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>new-value</includeMdcKeyName>-->
+  <!--<includeMdcKeyName>req.remoteHost</includeMdcKeyName>-->
+  <!--</encoder>-->
+  <!--</appender>-->
+
+  <logger name="com.nab" level="${appLogLevel}" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+
+  <root level="${rootLogLevel}">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+</configuration>
