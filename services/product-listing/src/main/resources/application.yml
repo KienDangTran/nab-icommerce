@@ -4,20 +4,20 @@ server:
 spring:
   application:
     name: product-listing
-  #  cloud:
-  #    stream:
-  #      bindings:
-  #        order-channel:
-  #          destination: order-channel
-  #      rabbit:
-  #        binder:
-  #          connection-name-prefix: ${spring.application.name}
-  #        bindings:
-  #          order-channel:
-  #            consumer:
-  #              auto-bind-dlq: true
-  #              prefix: nab.
-  #              dead-letter-exchange: nab.order-channel.dlx
+    cloud:
+      stream:
+        bindings:
+          order-channel:
+            destination: order-channel
+        rabbit:
+          binder:
+            connection-name-prefix: ${spring.application.name}
+          bindings:
+            order-channel:
+              consumer:
+                auto-bind-dlq: true
+                prefix: nab.
+                dead-letter-exchange: nab.order-channel.dlx
   datasource:
     driver-class-name: org.h2.Driver
     url: ${DB_URL:jdbc:h2:mem:icommerce}

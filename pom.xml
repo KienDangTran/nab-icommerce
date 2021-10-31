@@ -51,4 +51,38 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>3.1.4</version>
+          <configuration>
+            <skip>true</skip>
+            <from>
+              <image>
+                openjdk:16.0.2-jdk-slim@sha256:57f6b5719eed834ea98c5b6b797ad37548d8b2d7aa217aff313f228c4068e0b2
+              </image>
+            </from>
+            <to>
+              <image>
+                ${project.groupId}/${project.parent.artifactId}/${project.artifactId}
+              </image>
+            </to>
+            <containerizingMode>packaged</containerizingMode>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>dockerBuild</goal>
+              </goals>
+              <phase>install</phase>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
 </project>
