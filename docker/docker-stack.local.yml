@@ -1,0 +1,70 @@
+version: "3.6"
+
+volumes:
+  rabbitmqdata:
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.7.17-management
+    hostname: rabbitmq
+    ports:
+      - target: 5672
+        published: 5672
+        protocol: tcp
+        mode: host
+      - target: 15671
+        published: 15671
+        protocol: tcp
+        mode: host
+    env_file:
+      - rabbitmq.env
+    volumes:
+      - type: volume
+        source: rabbitmqdata
+        target: /var/lib/rabbitmq
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+
+  product-listing-service:
+    image: com.nab/icommerce/product-listing-service:latest
+    hostname: product-listing-service
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    env_file:
+      - local.env
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 1m
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+
+  order-service:
+    image: com.nab/icommerce/order-service:latest
+    hostname: order-service
+    ports:
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        mode: host
+    env_file:
+      - local.env
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 1m
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
